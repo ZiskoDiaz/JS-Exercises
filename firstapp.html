@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primera Aplicacion</title>
+</head>
+<body>
+    <form id="todo-form" action="">
+        <input type="text" id="todo"/>
+        <input type="submit" value="enviar"/>
+    </form>
+    <ul id="todo-list">
+
+    </ul>
+</body>
+<script>
+
+const todos = JSON.parse(localStorage.getItem('todos')) || [];
+const render = () => {
+    const todoList = document.getElementById ('todo-list');
+        // al enviar, limpia el documento para evitar que se repitan los datos
+        //todoList.innerHTML = '';
+        //recorremos el arreglo.
+        //for (let i = 0; i < todos.length; i++) {
+            //recorremos el arreglo limpio sin duplicados y concatenamos a los elementos
+            // de la lista.
+        //    todoList.innerHTML += '<li>'+ todos[i] + '</li>'
+        //}
+        //con MAP se genera un arreglo de tantos elementos como tenga
+        const todosTemplate = todos.map( t => '<li>'+ t + '</li>');
+        //limpio los elementos y asi se pueden concatenar al usar innerHTML
+        todoList.innerHTML = todosTemplate.join('');
+        //permite buscar por Id / clases / por alguna etiqueta que tengamos
+        const elementos = document.querySelectorAll('#todo-list li')
+        elementos.forEach ((elemento, i) => {
+            elemento.addEventListener('click', () => {
+                elemento.parentNode.removeChild (elemento)
+                todos.splice(i, 1);
+                actualizaTodos(todos)
+                render()
+            } )
+        })
+}
+
+const actualizaTodos = (todos) => {
+    //convierte todo los elementos del Todo en Strings
+    const todoStrings = JSON.stringify(todos)
+    //reemplazamos todos los TODOS 
+    localStorage.setItem('todos', todoStrings)
+}
+
+window.onload = () => {
+    render()
+    // guardamos la referencia del formulario
+    const form = document.getElementById('todo-form');
+    // reemplazar el evento de on en submit y debera ir a buscar el elemento
+    form.onsubmit = (e) => {
+        //esto evitara que la aplicacion se refresque y seguir trabajando en la misma pagina
+        e.preventDefault();
+        // vamos a buscar el todo
+        const todo = document.getElementById('todo');
+        // buscamos el texto ingresado
+        const todoText = todo.value;
+        // reemplazamos el elemento y le asignamos el siguiente valor vacio
+        todo.value = '';
+        // agregamos elementos al arreglo
+        todos.push(todoText);
+        actualizaTodos(todos)
+        //vamos a buscar 
+        render()
+        
+    }
+}
+
+</script>
+</html>
