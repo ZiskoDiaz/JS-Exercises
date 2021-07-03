@@ -1,0 +1,24 @@
+
+.flex{
+    display: flex;
+    flex-flow: row wrap;
+    height: 200px;
+}
+
+.red{
+    background-color: red;
+}
+
+.primero{
+    flex-grow: 1;
+    flex-basis: 120px;
+}
+
+.segundo{
+    flex: 1 60px;
+}
+
+.tercero{
+    flex-grow: 2;
+    align-self: end;
+}

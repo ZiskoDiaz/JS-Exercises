@@ -1,0 +1,41 @@
+body{
+    background-color: #eee;
+}
+
+.grid {
+    display:grid;
+    grid-template-rows: repeat(2, [row-inicio] 50px [row-fin]);
+    grid-template-columns: repeat(3, [col-inicio] 1fr [col-fin]);
+    grid-gap:15px;
+    /* 
+    display:grid;
+    grid-template-rows: [row-1-inicio] 50px [row-2-inicio] 50px [row-3-fin];
+    grid-template-columns: [col-1-inicio] 1fr [col-2-inicio] 1fr [col-3-inicio] 1fr [col-4-fin];
+    grid-gap:15px;
+    */
+
+    /* antiguo modo: 
+    grid-template-rows: repeat(2, 50px);
+    grid-template-columns: 30px repeat(3, 1fr) 15px;
+    grid-gap: 20px 10px;
+
+    grid-row-gap: 20px;
+    grid-column-gap: 5px;
+    se usan de las dos formas, la primera, aplica para ambos casos.
+    */
+}
+
+.element{
+    background-color: red;
+}
+
+.header{
+    /* forma larga
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    */
+    grid-column: col-inicio / col-fin 3;
+    grid-row: row-inicio / row-fin 3;
+}
